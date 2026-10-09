@@ -1,0 +1,60 @@
+import math
+
+def f(x):
+    return 2 * math.sin(x) - math.exp(x / 4) - 1
+
+
+def secant(f, x0, x1, tol=1e-6, max_iter=10):
+    header_fmt = "{:<8}{:<12}{:<12}{:<12}{:<12}{:<12}"
+    row_fmt = "{:<8}{:<12.6f}{:<12.6f}{:<12.6f}{:<12.6f}{:<12.6f}"
+
+    print(header_fmt.format(
+        "Iterasi", "x lama", "x baru", "f(x lama)", "f(x baru)", "Error"
+    ))
+    print("-" * 70)
+
+    for i in range(1, max_iter + 1):
+        fx0 = f(x0)
+        fx1 = f(x1)
+
+        # Mengecek apakah penyebut = 0
+        if fx1 - fx0 == 0:
+            print("Gagal: penyebut = 0")
+            return None
+
+
+        x2 = x1 - fx1 * (x1 - x0) / (fx1 - fx0)
+
+        error = abs(x2 - x1)
+
+        print(row_fmt.format(
+            i, x0, x1, fx0, fx1, error
+        ))
+
+        if abs(f(x2)) < tol or error < tol:
+            print("-" * 70)
+            print(
+                "Konvergensi akar hampiran diperoleh "
+                "pada iterasi ke-{}: x = {:.6f}".format(i, x2)
+            )
+            return x2
+
+        x0 = x1
+        x1 = x2
+
+    print("-" * 70)
+    print(
+        "Mencapai iterasi maksimum {}."
+        "Akar hampiran terakhir: x = {:.6f}".format(max_iter, x1)
+    )
+
+    return x1
+
+
+x0 = -5
+x1 = -3
+
+hasil = secant(f, x0, x1, tol=1e-6, max_iter=10)
+
+print("-" * 70)
+print("Hasil akhir =", hasil)
