@@ -10,7 +10,7 @@ def bisection(f, a, b, tol=1e-06, max_iter=22):
   header_fmt = "{:<8}{:<12}{:<12}{:<12}{:<12}{}"
   row_fmt = "{:<8d}{:<12.6f}{:<12.6f}{:<12.6f}{:<12.6f}{}"
   print(header_fmt.format("Iterasi", "a", "b", "c", "f(c)", "interval baru"))
-  print("-" * 75)
+  print("-" * 70)
 
   for i in range(1, max_iter + 1):
     c = (a + b) / 2
@@ -27,11 +27,11 @@ def bisection(f, a, b, tol=1e-06, max_iter=22):
     print(row_fmt.format(i, a_lama, b_lama, c, fc, interval_baru))
 
     if abs(fc) < tol or (b_lama - a_lama)/2 < tol:
-      print("-" * 75)
+      print("-" * 70)
       print("Konvergensi akar hampiran diperoleh pada iterasi ke-{}: x = {:.6f}".format(i, c))
       return c
 
-  print("-" * 75)
+  print("-" * 70)
   print("Mencapai iterasi maksimum {}. Akar hampiran terakhir: x = {:.6f}".format(max_iter, c))
   return c
 
